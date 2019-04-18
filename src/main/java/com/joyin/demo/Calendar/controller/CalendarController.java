@@ -1,7 +1,7 @@
-package com.joyin.demo.User.controller;
+package com.joyin.demo.Calendar.controller;
 
 
-import com.joyin.demo.User.dao.UsersDao;
+import com.joyin.demo.Calendar.dao.CalendarDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,13 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019-04-18
  */
 @RestController
-@RequestMapping("/User/users")
-public class UsersController {
+@RequestMapping("/Calendar/calendar")
+public class CalendarController {
 
+    @Autowired
+    public CalendarDao calendarDao;
 
-
-    public void test(){
-
-    }
 
 }
