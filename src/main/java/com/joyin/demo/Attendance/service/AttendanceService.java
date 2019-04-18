@@ -14,7 +14,7 @@ import freemarker.ext.servlet.IncludePage;
  * @author wwx
  * @since 2019-04-18
  */
-public interface IAttendanceService extends IService<Attendance> {
+public interface AttendanceService extends IService<Attendance> {
 
 
     IPage<Attendance> selectPageExt(Attendance attendance,int page,int pageSize);

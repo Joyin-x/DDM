@@ -1,4 +1,4 @@
-package com.joyin.demo.Base;
+package com.joyin.demo.Public.Base;
 
 /**
  * @author wwx

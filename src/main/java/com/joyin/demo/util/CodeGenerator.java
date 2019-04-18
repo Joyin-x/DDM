@@ -48,6 +48,7 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setMapperName("%sDao");
+        gc.setServiceName("%sService");
         gc.setAuthor("wwx");
         gc.setOpen(false);
         gc.setIdType(IdType.AUTO);

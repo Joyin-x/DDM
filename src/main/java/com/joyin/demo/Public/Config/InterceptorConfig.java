@@ -1,4 +1,4 @@
-package com.joyin.demo.Config;
+package com.joyin.demo.Public.Config;
 
 import com.joyin.demo.util.AllLnterceptor;
 import org.springframework.context.annotation.Configuration;
