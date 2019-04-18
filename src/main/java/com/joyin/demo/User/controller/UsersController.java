@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsersController {
 
     @Autowired
-    public UsersDao usersDao;
+    public UsersDao usersDao; 
 
     public void test(){
 
