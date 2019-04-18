@@ -1,6 +1,7 @@
-package com.joyin.demo.config;
+package com.joyin.demo.Config;
 
 import com.joyin.demo.util.AllLnterceptor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -8,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  * @author wwx
  * @date 2019/4/18 11:03
  **/
+@Configuration
 public class InterceptorConfig extends WebMvcConfigurationSupport {
 
     @Override
