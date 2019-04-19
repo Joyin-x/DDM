@@ -20,7 +20,18 @@ spring:
       max-wait: 60000
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
-
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 3000
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: 6000
+        max-idle: 8
+        min-idle: 0
 #mybatis-plus
 mybatis-plus:
   mapper-locations: classpath*:mapper/*/*Mapper.xml
@@ -31,4 +42,6 @@ mybatis-plus:
     #配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，自动匹配无需as（没开启这个，SQL需要写as： select user_id as userId）
     map-underscore-to-camel-case: true
     cache-enabled: false
+
+
 

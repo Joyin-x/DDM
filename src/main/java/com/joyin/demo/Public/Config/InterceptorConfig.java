@@ -18,7 +18,8 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         //多个拦截器时 以此添加 执行顺序按添加顺序
         registry.addInterceptor(new AllLnterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/error");
+                .excludePathPatterns("/Employee/login")
+                .excludePathPatterns("/User/user/error");
         super.addInterceptors(registry);
     }
 }
