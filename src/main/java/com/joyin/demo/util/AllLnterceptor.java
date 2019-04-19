@@ -18,7 +18,7 @@ import java.io.IOException;
  **/
 @Slf4j
 public class AllLnterceptor extends HandlerInterceptorAdapter {
-    
+
     long start=System.currentTimeMillis();
 
 
