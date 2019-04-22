@@ -1,9 +1,13 @@
 package com.joyin.demo.util;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
-import com.joyin.demo.Public.Base.BaseResponse;
+import com.alibaba.druid.util.StringUtils;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -19,32 +23,38 @@ import java.io.IOException;
 @Slf4j
 public class AllLnterceptor extends HandlerInterceptorAdapter {
 
-    long start=System.currentTimeMillis();
+    long start = System.currentTimeMillis();
 
 
     @Override
     //请求发生前
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)throws Exception{
+    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         httpServletResponse.setCharacterEncoding("utf-8");
-        String token=httpServletRequest.getHeader("accessToken");
+        String token = httpServletRequest.getHeader("accessToken");
         //token不存在
-        if(null!=token){
-            //验证token是否正确
-            boolean result=JwtUtil.verify(token);
-            if(result){
-                return true;
-            }
+        if (StringUtils.isEmpty(token)) {
+            forwardError(401, httpServletRequest, httpServletResponse);
+            return false;
         }
-        start=System.currentTimeMillis();
-        forwardError(420,httpServletRequest,httpServletResponse);
-        return false;
+        Algorithm algorithm = Algorithm.HMAC256(JwtUtil.TOKEN_SECRET);
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        DecodedJWT jwt = null;
+        try {
+            //解密
+            jwt = verifier.verify(token);
+        } catch (TokenExpiredException e) {
+            forwardError(403,httpServletRequest,httpServletResponse);
+        }catch(JWTVerificationException e){
+            forwardError(401,httpServletRequest,httpServletResponse);
+        }
+        return true;
     }
 
 
     @Override
     //当前请求进行处理之后
-    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)throws Exception{
-        System.out.println("Interceptor cost="+(System.currentTimeMillis()-start));
+    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
+        System.out.println("Interceptor cost=" + (System.currentTimeMillis() - start));
     }
 
 
@@ -56,6 +66,6 @@ public class AllLnterceptor extends HandlerInterceptorAdapter {
 
     private void forwardError(int code, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setStatus(code);
-        request.getRequestDispatcher("/User/user/error").forward(request, response);
+        request.getRequestDispatcher("/User/user/error?code=" + code).forward(request, response);
     }
 }

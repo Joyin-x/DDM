@@ -17,9 +17,9 @@ public class BaseResponse<T> {
         this.msg = ResponseCode.FAILURE.getMsg();
     }
 
-    public BaseResponse(ResponseCode status, String msg) {
-        this.code = status.getCode();
-        this.msg = msg;
+    public BaseResponse(ResponseCode responseCode) {
+        this.code = responseCode.getCode();
+        this.msg = responseCode.getMsg();
     }
     public void setStatus(ResponseCode status) {
         this.code = status.getCode();

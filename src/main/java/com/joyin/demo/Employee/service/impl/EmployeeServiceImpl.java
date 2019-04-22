@@ -6,6 +6,8 @@ import com.joyin.demo.Employee.service.EmployeeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeDao, Employee> implements EmployeeService {
 
+    public List<Employee> getEmployeeList(){
+        List<Employee> employeeList=baseMapper.selectList(null);
+        return employeeList;
+    }
 }
